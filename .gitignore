@@ -1,0 +1,23 @@
+# Secrets and local credentials
+.env
+.env.*
+token.json
+credentials.json
+client_secret.json
+*.pfx
+*.pem
+*.key
+
+# Local/runtime output
+logs/
+debug.log
+shioaji.log
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.vscode/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+

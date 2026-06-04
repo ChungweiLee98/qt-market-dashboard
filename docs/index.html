@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Personal quantitative market dashboard. Static GitHub Pages site with no forms, no software installers, and no personal-data fields."
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <title>QT Market Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">QT Market Dashboard</p>
+          <h1>金融量化儀表板</h1>
+        </div>
+        <div class="status-strip">
+          <div>
+            <span>資料日期</span>
+            <strong id="latest-date">--</strong>
+          </div>
+          <div>
+            <span>更新時間</span>
+            <strong id="generated-at">--</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="metric-grid" id="metric-grid" aria-label="Latest metrics"></section>
+
+      <section class="panel chart-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Normalized Trend</h2>
+            <p>起點 = 100</p>
+          </div>
+          <div class="range-control" id="range-control" aria-label="Range">
+            <button type="button" data-range="90">90D</button>
+            <button type="button" data-range="180">180D</button>
+            <button type="button" data-range="365" class="active">1Y</button>
+            <button type="button" data-range="0">All</button>
+          </div>
+        </div>
+        <div class="chart" id="trend-chart"></div>
+      </section>
+
+      <section class="dashboard-grid">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Model Signal</h2>
+              <p id="signal-subtitle">--</p>
+            </div>
+            <div class="signal-badge" id="signal-badge">--</div>
+          </div>
+          <div class="chart compact" id="signal-chart"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Risk Snapshot</h2>
+              <p>FMR / VIX / Yield / OI</p>
+            </div>
+          </div>
+          <div class="risk-list" id="risk-list"></div>
+        </section>
+      </section>
+
+      <footer class="site-note">
+        個人量化觀察頁，僅顯示公開或自有資料；不提供表單、軟體安裝檔或個資欄位。
+      </footer>
+    </main>
+
+    <script src="./vendor/echarts.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
