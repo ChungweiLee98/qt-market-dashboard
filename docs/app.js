@@ -84,12 +84,22 @@ function renderRiskList() {
   const metricMap = byKey(dashboard.metrics);
   list.innerHTML = riskMetricKeys.map((key) => {
     const metric = metricMap[key];
-    const pct = riskPercent(metric);
+    const assessment = assessRisk(metric);
     return `
       <div class="risk-row">
-        <div class="risk-name">${escapeHtml(metric.label)}</div>
-        <div class="risk-value">${formatValue(metric.latest, metric.precision)}${metric.unit ? ` ${escapeHtml(metric.unit)}` : ""}</div>
-        <div class="risk-bar"><span style="width: ${pct}%"></span></div>
+        <div class="risk-row-head">
+          <div>
+            <div class="risk-name">${escapeHtml(metric.label)}</div>
+            <div class="risk-dimension">${escapeHtml(assessment.dimension)}</div>
+          </div>
+          <div class="risk-pill ${assessment.tone}">${escapeHtml(assessment.status)}</div>
+        </div>
+        <div class="risk-reading">
+          <span>最新值</span>
+          <strong>${formatValue(metric.latest, metric.precision)}${metric.unit ? ` ${escapeHtml(metric.unit)}` : ""}</strong>
+        </div>
+        <p class="risk-note">${escapeHtml(assessment.note)}</p>
+        <div class="risk-meta">${escapeHtml(assessment.meta)}</div>
       </div>
     `;
   }).join("");
@@ -214,13 +224,73 @@ function normalize(points) {
   }));
 }
 
-function riskPercent(metric) {
+function assessRisk(metric) {
+  const value = Number(metric.latest);
+  const percentile = valuePercentile(metric);
+  const meta = percentile == null ? "近一年百分位：--" : `近一年百分位：${formatValue(percentile, 0)}%`;
+
+  if (metric.key === "fmr") {
+    if (value < 145) {
+      return riskAssessment("槓桿安全墊", "高風險", "danger", "融資維持率低於 145%，斷頭壓力與連鎖賣壓風險升高。", meta);
+    }
+    if (value < 160) {
+      return riskAssessment("槓桿安全墊", "中風險", "watch", "融資維持率仍未回到舒適區，槓桿部位需要觀察。", meta);
+    }
+    return riskAssessment("槓桿安全墊", "低風險", "calm", "融資維持率高於 160%，目前槓桿安全墊相對充足。", meta);
+  }
+
+  if (metric.key === "vix") {
+    if (value >= 40) {
+      return riskAssessment("全球波動", "恐慌區", "danger", "VIX 高於 40，市場處於極端避險狀態。", meta);
+    }
+    if (value >= 30) {
+      return riskAssessment("全球波動", "高波動", "danger", "VIX 高於 30，風險資產波動壓力明顯。", meta);
+    }
+    if (value >= 20) {
+      return riskAssessment("全球波動", "波動升溫", "watch", "VIX 高於 20，市場避險情緒開始升溫。", meta);
+    }
+    return riskAssessment("全球波動", "低波動", "calm", "VIX 低於 20，外部波動目前偏低。", meta);
+  }
+
+  if (metric.key === "bond30y") {
+    if (value >= 5) {
+      return riskAssessment("利率壓力", "壓力高", "danger", "30 年期美債殖利率接近或高於 5%，估值與資金成本壓力偏重。", meta);
+    }
+    if (value >= 4.58) {
+      return riskAssessment("利率壓力", "壓力偏高", "watch", "30 年期美債殖利率高於觀察門檻 4.58%，成長股估值壓力需留意。", meta);
+    }
+    if (value >= 4.3) {
+      return riskAssessment("利率壓力", "中性偏高", "watch", "長天期利率仍在相對高檔，對估值有一定壓力。", meta);
+    }
+    return riskAssessment("利率壓力", "壓力較低", "calm", "長天期利率低於主要壓力區，資金成本壓力相對緩和。", meta);
+  }
+
+  if (metric.key === "foreign_oi") {
+    if (value <= -35000) {
+      return riskAssessment("外資籌碼", "外資偏空", "danger", "外資期貨未平倉低於 -35,000，籌碼方向明顯偏空。", meta);
+    }
+    if (value < 0) {
+      return riskAssessment("外資籌碼", "外資保守", "watch", "外資期貨未平倉仍為負值，方向偏保守。", meta);
+    }
+    if (value >= 35000) {
+      return riskAssessment("外資籌碼", "外資偏多", "calm", "外資期貨未平倉高於 35,000，籌碼方向明顯偏多。", meta);
+    }
+    return riskAssessment("外資籌碼", "外資中性", "neutral", "外資期貨未平倉接近中性區，方向訊號不強。", meta);
+  }
+
+  return riskAssessment("風險觀察", "待判斷", "neutral", "尚未設定此指標的風險規則。", meta);
+}
+
+function riskAssessment(dimension, status, tone, note, meta) {
+  return { dimension, status, tone, note, meta };
+}
+
+function valuePercentile(metric) {
   const points = trimPoints(metric.points, 365).map((point) => Number(point.value)).filter(Number.isFinite);
-  if (!points.length || metric.latest == null) return 0;
-  const min = Math.min(...points);
-  const max = Math.max(...points);
-  if (max === min) return 50;
-  return Math.max(4, Math.min(100, ((Number(metric.latest) - min) / (max - min)) * 100));
+  const value = Number(metric.latest);
+  if (!points.length || !Number.isFinite(value)) return null;
+  const rank = points.filter((point) => point <= value).length / points.length;
+  return rank * 100;
 }
 
 function changeTone(metric) {
