@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-04T14:14:40+08:00",
-  "latest_data_date": "2026-06-04",
+  "generated_at": "2026-06-05T08:05:23+08:00",
+  "latest_data_date": "2026-06-05",
   "max_points": 900,
   "metrics": [
     {
@@ -11,16 +11,12 @@
       "unit": "pt",
       "precision": 0,
       "higher_is_good": true,
-      "latest_date": "2026-06-03",
-      "latest": 46459.0,
-      "previous": 45557.0,
-      "change": 902.0,
-      "change_pct": 1.98,
+      "latest_date": "2026-06-04",
+      "latest": 45677.0,
+      "previous": 46459.0,
+      "change": -782.0,
+      "change_pct": -1.68,
       "points": [
-        {
-          "date": "2022-09-13",
-          "value": 14894.0
-        },
         {
           "date": "2022-09-14",
           "value": 14658.0
@@ -3616,6 +3612,10 @@
         {
           "date": "2026-06-03",
           "value": 46459.0
+        },
+        {
+          "date": "2026-06-04",
+          "value": 45677.0
         }
       ]
     },
@@ -3627,16 +3627,12 @@
       "unit": "%",
       "precision": 2,
       "higher_is_good": true,
-      "latest_date": "2026-06-03",
-      "latest": 181.84,
-      "previous": 181.55,
-      "change": 0.29,
-      "change_pct": 0.16,
+      "latest_date": "2026-06-04",
+      "latest": 176.56,
+      "previous": 181.84,
+      "change": -5.28,
+      "change_pct": -2.9,
       "points": [
-        {
-          "date": "2022-06-01",
-          "value": 160.08
-        },
         {
           "date": "2022-06-02",
           "value": 159.31
@@ -7232,6 +7228,10 @@
         {
           "date": "2026-06-03",
           "value": 181.84
+        },
+        {
+          "date": "2026-06-04",
+          "value": 176.56
         }
       ]
     },
@@ -7243,16 +7243,12 @@
       "unit": "",
       "precision": 2,
       "higher_is_good": false,
-      "latest_date": "2026-06-03",
-      "latest": 16.06,
-      "previous": 15.78,
-      "change": 0.28,
-      "change_pct": 1.77,
+      "latest_date": "2026-06-04",
+      "latest": 15.4,
+      "previous": 16.06,
+      "change": -0.66,
+      "change_pct": -4.11,
       "points": [
-        {
-          "date": "2022-12-06",
-          "value": 22.17
-        },
         {
           "date": "2022-12-07",
           "value": 22.68
@@ -10848,6 +10844,10 @@
         {
           "date": "2026-06-03",
           "value": 16.06
+        },
+        {
+          "date": "2026-06-04",
+          "value": 15.4
         }
       ]
     },
@@ -10859,16 +10859,12 @@
       "unit": "",
       "precision": 3,
       "higher_is_good": null,
-      "latest_date": "2026-06-04",
-      "latest": 31.45,
-      "previous": 31.4,
-      "change": 0.05,
-      "change_pct": 0.16,
+      "latest_date": "2026-06-05",
+      "latest": 31.44,
+      "previous": 31.45,
+      "change": -0.01,
+      "change_pct": -0.03,
       "points": [
-        {
-          "date": "2022-09-12",
-          "value": 30.87
-        },
         {
           "date": "2022-09-13",
           "value": 30.89
@@ -14464,6 +14460,10 @@
         {
           "date": "2026-06-04",
           "value": 31.45
+        },
+        {
+          "date": "2026-06-05",
+          "value": 31.44
         }
       ]
     },
@@ -14475,11 +14475,11 @@
       "unit": "USD",
       "precision": 2,
       "higher_is_good": null,
-      "latest_date": "2026-06-03",
-      "latest": 95.44,
-      "previous": 93.84,
-      "change": 1.6,
-      "change_pct": 1.71,
+      "latest_date": "2026-06-04",
+      "latest": 92.81,
+      "previous": 95.44,
+      "change": -2.63,
+      "change_pct": -2.76,
       "points": [
         {
           "date": "2024-04-09",
@@ -16108,6 +16108,10 @@
         {
           "date": "2026-06-03",
           "value": 95.44
+        },
+        {
+          "date": "2026-06-04",
+          "value": 92.81
         }
       ]
     },
@@ -16119,11 +16123,11 @@
       "unit": "%",
       "precision": 2,
       "higher_is_good": false,
-      "latest_date": "2026-06-03",
-      "latest": 4.99,
-      "previous": 4.96,
-      "change": 0.03,
-      "change_pct": 0.6,
+      "latest_date": "2026-06-04",
+      "latest": 4.98,
+      "previous": 4.99,
+      "change": -0.01,
+      "change_pct": -0.2,
       "points": [
         {
           "date": "2023-10-04",
@@ -18232,6 +18236,10 @@
         {
           "date": "2026-06-03",
           "value": 4.99
+        },
+        {
+          "date": "2026-06-04",
+          "value": 4.98
         }
       ]
     },
@@ -18243,11 +18251,11 @@
       "unit": "",
       "precision": 0,
       "higher_is_good": true,
-      "latest_date": "2026-06-03",
-      "latest": -66772.0,
-      "previous": -67018.0,
-      "change": 246.0,
-      "change_pct": 0.37,
+      "latest_date": "2026-06-04",
+      "latest": -69476.0,
+      "previous": -66772.0,
+      "change": -2704.0,
+      "change_pct": -4.05,
       "points": [
         {
           "date": "2024-07-16",
@@ -19524,6 +19532,10 @@
         {
           "date": "2026-06-03",
           "value": -66772.0
+        },
+        {
+          "date": "2026-06-04",
+          "value": -69476.0
         }
       ]
     },
@@ -19535,16 +19547,12 @@
       "unit": "%",
       "precision": 2,
       "higher_is_good": null,
-      "latest_date": "2026-06-03",
-      "latest": 27.06,
-      "previous": 35.5,
-      "change": -8.44,
-      "change_pct": -23.77,
+      "latest_date": "2026-06-04",
+      "latest": 36.77,
+      "previous": 27.06,
+      "change": 9.71,
+      "change_pct": 35.88,
       "points": [
-        {
-          "date": "2022-03-18",
-          "value": -6.32
-        },
         {
           "date": "2022-03-21",
           "value": -9.09
@@ -23140,6 +23148,10 @@
         {
           "date": "2026-06-03",
           "value": 27.06
+        },
+        {
+          "date": "2026-06-04",
+          "value": 36.77
         }
       ]
     }
@@ -23147,8 +23159,8 @@
   "signals": {
     "source": "all_feature_plus_signal_v2.csv",
     "latest": {
-      "date": "2026-06-03",
-      "close": 46459.0,
+      "date": "2026-06-04",
+      "close": 45677.0,
       "signal": "2",
       "signal_label": "Risk-Off",
       "confidence": 100.0,
@@ -23156,15 +23168,6 @@
       "risk_off": 0
     },
     "points": [
-      {
-        "date": "2022-06-01",
-        "close": 16675.0,
-        "signal": "2",
-        "signal_label": "Risk-Off",
-        "confidence": 10.0,
-        "risk_on": 0,
-        "risk_off": 0
-      },
       {
         "date": "2022-06-02",
         "close": 16553.0,
@@ -31250,6 +31253,15 @@
       {
         "date": "2026-06-03",
         "close": 46459.0,
+        "signal": "2",
+        "signal_label": "Risk-Off",
+        "confidence": 100.0,
+        "risk_on": 0,
+        "risk_off": 0
+      },
+      {
+        "date": "2026-06-04",
+        "close": 45677.0,
         "signal": "2",
         "signal_label": "Risk-Off",
         "confidence": 100.0,
