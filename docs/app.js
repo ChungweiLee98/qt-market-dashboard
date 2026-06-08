@@ -95,7 +95,7 @@ function renderRiskList() {
           <div class="risk-pill ${assessment.tone}">${escapeHtml(assessment.status)}</div>
         </div>
         <div class="risk-reading">
-          <span>最新值</span>
+          <span>Latest</span>
           <strong>${formatValue(metric.latest, metric.precision)}${metric.unit ? ` ${escapeHtml(metric.unit)}` : ""}</strong>
         </div>
         <p class="risk-note">${escapeHtml(assessment.note)}</p>
@@ -227,58 +227,58 @@ function normalize(points) {
 function assessRisk(metric) {
   const value = Number(metric.latest);
   const percentile = valuePercentile(metric);
-  const meta = percentile == null ? "近一年百分位：--" : `近一年百分位：${formatValue(percentile, 0)}%`;
+  const meta = percentile == null ? "1Y percentile: --" : `1Y percentile: ${formatValue(percentile, 0)}%`;
 
   if (metric.key === "fmr") {
     if (value < 145) {
-      return riskAssessment("槓桿安全墊", "高風險", "danger", "融資維持率低於 145%，斷頭壓力與連鎖賣壓風險升高。", meta);
+      return riskAssessment("Margin Safety", "High Risk", "danger", "FMR is below 145%, indicating elevated forced-selling and margin pressure risk.", meta);
     }
     if (value < 160) {
-      return riskAssessment("槓桿安全墊", "中風險", "watch", "融資維持率仍未回到舒適區，槓桿部位需要觀察。", meta);
+      return riskAssessment("Margin Safety", "Medium Risk", "watch", "FMR is below the comfort zone, so leveraged positioning needs monitoring.", meta);
     }
-    return riskAssessment("槓桿安全墊", "低風險", "calm", "融資維持率高於 160%，目前槓桿安全墊相對充足。", meta);
+    return riskAssessment("Margin Safety", "Low Risk", "calm", "FMR is above 160%, suggesting a relatively healthy margin safety buffer.", meta);
   }
 
   if (metric.key === "vix") {
     if (value >= 40) {
-      return riskAssessment("全球波動", "恐慌區", "danger", "VIX 高於 40，市場處於極端避險狀態。", meta);
+      return riskAssessment("Global Volatility", "Panic Zone", "danger", "VIX is above 40, indicating an extreme risk-off environment.", meta);
     }
     if (value >= 30) {
-      return riskAssessment("全球波動", "高波動", "danger", "VIX 高於 30，風險資產波動壓力明顯。", meta);
+      return riskAssessment("Global Volatility", "High Volatility", "danger", "VIX is above 30, showing clear volatility pressure across risk assets.", meta);
     }
     if (value >= 20) {
-      return riskAssessment("全球波動", "波動升溫", "watch", "VIX 高於 20，市場避險情緒開始升溫。", meta);
+      return riskAssessment("Global Volatility", "Volatility Rising", "watch", "VIX is above 20, suggesting risk aversion is rising.", meta);
     }
-    return riskAssessment("全球波動", "低波動", "calm", "VIX 低於 20，外部波動目前偏低。", meta);
+    return riskAssessment("Global Volatility", "Low Volatility", "calm", "VIX is below 20, so external volatility is currently contained.", meta);
   }
 
   if (metric.key === "bond30y") {
     if (value >= 5) {
-      return riskAssessment("利率壓力", "壓力高", "danger", "30 年期美債殖利率接近或高於 5%，估值與資金成本壓力偏重。", meta);
+      return riskAssessment("Rate Pressure", "High Pressure", "danger", "The 30Y Treasury yield is near or above 5%, weighing on valuation and funding costs.", meta);
     }
     if (value >= 4.58) {
-      return riskAssessment("利率壓力", "壓力偏高", "watch", "30 年期美債殖利率高於觀察門檻 4.58%，成長股估值壓力需留意。", meta);
+      return riskAssessment("Rate Pressure", "Elevated Pressure", "watch", "The 30Y Treasury yield is above the 4.58% watch level, so growth-stock valuation pressure should be monitored.", meta);
     }
     if (value >= 4.3) {
-      return riskAssessment("利率壓力", "中性偏高", "watch", "長天期利率仍在相對高檔，對估值有一定壓力。", meta);
+      return riskAssessment("Rate Pressure", "Moderately Elevated", "watch", "Long-end rates remain relatively high and may still pressure valuations.", meta);
     }
-    return riskAssessment("利率壓力", "壓力較低", "calm", "長天期利率低於主要壓力區，資金成本壓力相對緩和。", meta);
+    return riskAssessment("Rate Pressure", "Lower Pressure", "calm", "Long-end rates are below the main pressure zone, so funding-cost pressure is relatively moderate.", meta);
   }
 
   if (metric.key === "foreign_oi") {
     if (value <= -35000) {
-      return riskAssessment("外資籌碼", "外資偏空", "danger", "外資期貨未平倉低於 -35,000，籌碼方向明顯偏空。", meta);
+      return riskAssessment("Foreign Positioning", "Foreign Bearish", "danger", "Foreign futures open interest is below -35,000, showing a clear bearish positioning bias.", meta);
     }
     if (value < 0) {
-      return riskAssessment("外資籌碼", "外資保守", "watch", "外資期貨未平倉仍為負值，方向偏保守。", meta);
+      return riskAssessment("Foreign Positioning", "Foreign Cautious", "watch", "Foreign futures open interest is still negative, indicating a cautious bias.", meta);
     }
     if (value >= 35000) {
-      return riskAssessment("外資籌碼", "外資偏多", "calm", "外資期貨未平倉高於 35,000，籌碼方向明顯偏多。", meta);
+      return riskAssessment("Foreign Positioning", "Foreign Bullish", "calm", "Foreign futures open interest is above 35,000, showing a clear bullish positioning bias.", meta);
     }
-    return riskAssessment("外資籌碼", "外資中性", "neutral", "外資期貨未平倉接近中性區，方向訊號不強。", meta);
+    return riskAssessment("Foreign Positioning", "Foreign Neutral", "neutral", "Foreign futures open interest is near neutral, so the positioning signal is not strong.", meta);
   }
 
-  return riskAssessment("風險觀察", "待判斷", "neutral", "尚未設定此指標的風險規則。", meta);
+  return riskAssessment("Risk Monitor", "Pending", "neutral", "No risk rule is configured for this metric yet.", meta);
 }
 
 function riskAssessment(dimension, status, tone, note, meta) {
@@ -318,7 +318,7 @@ function formatDateTime(value) {
   if (!value) return "--";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleString("zh-TW", {
+  return date.toLocaleString("en-US", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
